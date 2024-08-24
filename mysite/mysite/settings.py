@@ -25,8 +25,43 @@ SECRET_KEY = 'django-insecure-)5#v^p+^26a*0icl$vvy@vc_y2ff)k-!lbv2h&0_%kssszt%5f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost"]
 
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:5173",
+    'http://localhost:5173',
+]
+
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',  # for localhost (REACT Default)
+    'http://192.168.0.50:3000',  # for network 
+    'http://localhost:5173',  # for localhost (Developlemt)
+    'http://192.168.0.50:8080',  # for network (Development)
+)
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',  # for localhost (REACT Default)
+    'http://192.168.0.50:3000',  # for network 
+    'http://localhost:5173',  # for localhost (Developlemt)
+    'http://192.168.0.50:8080',  # for network (Development)
+]
+
+CORS_ALLOW_HEADERS = [
+'accept',
+'accept-encoding',
+'authorization',
+'content-type',
+'dnt',
+'origin',
+'user-agent',
+'x-csrftoken',
+'x-requested-with',
+]
 
 # Application definition
 
@@ -37,11 +72,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "api",
     "rest_framework",
+    'corsheaders',
+    "api",
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
